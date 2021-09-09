@@ -1,18 +1,12 @@
-## Native Page Transitions Cordova / PhoneGap Plugin
-by [Telerik](http://www.telerik.com)
+# Native Page Transitions Cordova
+https://user-images.githubusercontent.com/25527619/132713537-62ab8498-c0ed-44a2-91d4-273e952b84aa.mp4
 
-> **WARNING**: This plugin is no longer maintained, and we now recommend using [NativeScript](https://www.nativescript.org/) as you get native transitions (and UI) out of the box.
-
-Using the Cordova CLI?
-
+## JavaScript API
+```js
+// All of the api will return Promise
+IsekaiPageTransition.freeze() // take a screenshot for webview and freeze the view
+IsekaiPageTransition.unfreeze() // unfreeze view
+IsekaiPageTransition.animateForward() // start forward animate
+IsekaiPageTransition.animateBackward() // start backward  animate
+IsekaiPageTransition.animateFade() // start cross fade animate
 ```
-cordova plugin add com.telerik.plugins.nativepagetransitions
-```
-
-Using PGB?
-
-```xml
-<plugin name="com.telerik.plugins.nativepagetransitions" source="npm" />
-```
-
-[The MIT License (MIT)](http://www.opensource.org/licenses/mit-license.html)

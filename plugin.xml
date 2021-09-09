@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+				id="cordova-plugin-isekai-page-transition"
+				version="0.7.0">
+
+	<name>Isekai Page Transition</name>
+
+	<description>
+		Native Page Transitions
+	</description>
+
+	<author>Hyperzlib, Eddy Verbruggen / Telerik</author>
+
+	<license>MIT</license>
+
+	<keywords>Page transition, Native page transitions</keywords>
+	
+	<repo>https://github.com/hyperzlib/cordova-plugin-isekai-page-transition.git</repo>
+
+	<issue>https://github.com/hyperzlib/cordova-plugin-isekai-page-transition/issues</issue>
+
+	<engines>
+		<engine name="cordova" version=">=8.0.0"/>
+	</engines>
+
+	<js-module src="www/IsekaiPageTransition.js" name="IsekaiPageTransition">
+		<clobbers target="window.IsekaiPageTransition"/>
+	</js-module>
+
+	<!-- android -->
+	<platform name="android">
+		<config-file target="res/xml/config.xml" parent="/*">
+			<feature name="IsekaiPageTransition">
+				<param name="android-package" value="cn.isekai.bbs.IsekaiPageTransition"/>
+        		<param name="onload" value="true" />
+			</feature>
+		</config-file>
+		<framework src="androidx.appcompat:appcompat:1.3.1" />
+		<framework src="androidx.interpolator:interpolator:1.0.0" />
+		<source-file src="src/android/IsekaiPageTransition.java" target-dir="src/cn/isekai/bbs"/>
+		<resource-file src="src/android/anim/fade_in.xml" target="res/anim/fade_in.xml" />
+		<resource-file src="src/android/anim/slide_in_left.xml" target="res/anim/slide_in_left.xml" />
+		<resource-file src="src/android/anim/slide_in_right.xml" target="res/anim/slide_in_right.xml" />
+		<resource-file src="src/android/anim/slide_out_left.xml" target="res/anim/slide_out_left.xml" />
+		<resource-file src="src/android/anim/slide_out_right.xml" target="res/anim/slide_out_right.xml" />
+	</platform>
+</plugin>

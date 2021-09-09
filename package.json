@@ -1,0 +1,17 @@
+{
+  "name": "cordova-plugin-isekai-page-transition",
+  "version": "1.0.0",
+  "description": "Native page transition for cordova web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cordova",
+    "Page transitions",
+    "Native page transitions",
+    "cordova-android"
+  ],
+  "author": "Hyperzlib",
+  "license": "MIT"
+}

@@ -3,6 +3,7 @@ package cn.isekai.bbs;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -78,6 +79,8 @@ public class IsekaiPageTransition extends CordovaPlugin {
         } else if ("animateBackward".equals(action)) {
             cordova.getActivity().runOnUiThread(() -> animateBackward(callbackContext));
             return true;
+        } else if ("animateFade".equals(action)) {
+            cordova.getActivity().runOnUiThread(() -> animateFade(callbackContext));
         }
 
         return false;
@@ -93,17 +96,21 @@ public class IsekaiPageTransition extends CordovaPlugin {
         webView.getView().setLayerType(View.LAYER_TYPE_HARDWARE, null);
     }
 
-    private void setFreeze(boolean isFreeze) {
+    public void setFreeze(boolean isFreeze) {
         setFreeze(isFreeze, null);
     }
 
-    private void setFreeze(boolean isFreeze, CallbackContext callback) {
+    public void setFreeze(boolean isFreeze, CallbackContext callback) {
         webView.getView().clearAnimation();
         oldPageImageView.clearAnimation();
 
         if (isFreeze) {
             if (!this.isFreeze) {
-                oldPageImageView.setImageBitmap(getWebviewBitmap());
+                try {
+                    oldPageImageView.setImageBitmap(getWebviewBitmap());
+                } catch(Exception e) {
+                    Log.e(TAG, "Cannot get webview bitmap", e);
+                }
             }
             bringToFront(oldPageImageView);
         } else {
@@ -116,7 +123,7 @@ public class IsekaiPageTransition extends CordovaPlugin {
             callback.success();
     }
 
-    private void bringToFront(View view) {
+    public void bringToFront(View view) {
         view.bringToFront();
         // view.setVisibility(View.VISIBLE);
     }
@@ -134,11 +141,11 @@ public class IsekaiPageTransition extends CordovaPlugin {
         return bitmap;
     }
 
-    private void animateForward() {
+    public void animateForward() {
         animateForward(null);
     }
 
-    private void animateForward(CallbackContext callback) {
+    public void animateForward(CallbackContext callback) {
         setFreeze(true);
 
         Context context = cordova.getActivity().getBaseContext();
@@ -176,11 +183,11 @@ public class IsekaiPageTransition extends CordovaPlugin {
         oldPageImageView.startAnimation(leaveAnim);
     }
 
-    private void animateBackward() {
+    public void animateBackward() {
         animateBackward(null);
     }
 
-    private void animateBackward(CallbackContext callback) {
+    public void animateBackward(CallbackContext callback) {
         if (!isFreeze)
             setFreeze(true);
 
@@ -211,6 +218,41 @@ public class IsekaiPageTransition extends CordovaPlugin {
         });
 
         oldPageImageView.startAnimation(leaveAnim);
+        webViewView.startAnimation(enterAnim);
+    }
+
+    public void animateFade() {
+        animateFade(null);
+    }
+
+    public void animateFade(CallbackContext callback) {
+        if (!isFreeze)
+            setFreeze(true);
+
+        Context context = cordova.getActivity().getBaseContext();
+        View webViewView = webView.getView();
+
+        Animation enterAnim = AnimationUtils.loadAnimation(context, R.anim.fade_in);
+
+        enterAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                webViewView.setAlpha(1);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                setFreeze(false);
+                if (callback != null)
+                    callback.success();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) { }
+        });
+
+        webViewView.setAlpha(0);
+        bringToFront(webViewView);
         webViewView.startAnimation(enterAnim);
     }
 }

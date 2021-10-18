@@ -151,8 +151,9 @@ public class IsekaiPageTransition extends CordovaPlugin {
         Context context = cordova.getActivity().getBaseContext();
         View webViewView = webView.getView();
 
-        Animation enterAnim = AnimationUtils.loadAnimation(context, R.anim.slide_in_left);
-        Animation leaveAnim = AnimationUtils.loadAnimation(context, R.anim.slide_out_left);
+
+        Animation enterAnim = AnimationUtils.loadAnimation(context, cordova.getContext().getResources().getIdentifier("slide_in_left", "anim", cordova.getContext().getPackageName()));
+        Animation leaveAnim = AnimationUtils.loadAnimation(context, cordova.getContext().getResources().getIdentifier("slide_out_left", "anim", cordova.getContext().getPackageName()));
 
         enterAnim.setFillAfter(true);
         leaveAnim.setFillAfter(false);
@@ -194,8 +195,8 @@ public class IsekaiPageTransition extends CordovaPlugin {
         Context context = cordova.getActivity().getBaseContext();
         View webViewView = webView.getView();
 
-        Animation enterAnim = AnimationUtils.loadAnimation(context, R.anim.slide_in_right);
-        Animation leaveAnim = AnimationUtils.loadAnimation(context, R.anim.slide_out_right);
+        Animation enterAnim = AnimationUtils.loadAnimation(context, cordova.getContext().getResources().getIdentifier("slide_in_right", "anim", cordova.getContext().getPackageName()));
+        Animation leaveAnim = AnimationUtils.loadAnimation(context, cordova.getContext().getResources().getIdentifier("slide_out_right", "anim", cordova.getContext().getPackageName()));
 
         enterAnim.setFillAfter(true);
         leaveAnim.setFillAfter(false);
@@ -232,7 +233,7 @@ public class IsekaiPageTransition extends CordovaPlugin {
         Context context = cordova.getActivity().getBaseContext();
         View webViewView = webView.getView();
 
-        Animation enterAnim = AnimationUtils.loadAnimation(context, R.anim.fade_in);
+        Animation enterAnim = AnimationUtils.loadAnimation(context, cordova.getContext().getResources().getIdentifier("fade_in", "anim", cordova.getContext().getPackageName()));
 
         enterAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
